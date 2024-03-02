@@ -154,10 +154,16 @@ def add_contact(args, book:AddressBook):
 
 @input_error
 def change_contact(args,book:AddressBook):
-    name,phoneold,phonenew=args
-    nname=book.find(name)
-    nname.edit_phone(phoneold,phonenew)
-    return "Contact updated."
+    if len(args)==3:
+        name,phoneold,phonenew=args
+        nname=book.find(name)
+        nname.edit_phone(phoneold,phonenew)
+        return "Contact updated."
+    elif len(args)==2:
+        name,phone=args
+        nname=book.find(name)
+        nname.add_phone(phone)
+        return "New phone added."
 
 @input_error
 def show_phone(args,book:AddressBook):
@@ -173,7 +179,7 @@ def show_all(book:AddressBook):
 @input_error
 def add_birthday(args, book:AddressBook):
     name,birthday=args
-    nname=Record(name)
+    nname=book.find(name)
     nname.add_birtday(birthday)
     book.add_record(nname)
     return "Birthday added."
